@@ -5,6 +5,7 @@ import {
   displayWeatherData,
   getCurrentWeather,
   getLocation,
+  updateBackground,
 } from "./utils";
 
 async function handleSubmit(event: Event) {
@@ -15,11 +16,12 @@ async function handleSubmit(event: Event) {
 
   try {
     const locationRes = await getLocation(locationName);
-    const locationInfo= locationRes.results[0] 
-     const weatherInfo = await getCurrentWeather(locationInfo);
-console.log(weatherInfo)
-     displayLocation(locationInfo);
-     displayWeatherData(weatherInfo);
+    const locationInfo = locationRes.results[0];
+    const weatherInfo = await getCurrentWeather(locationInfo);
+    console.log(weatherInfo);
+    displayLocation(locationInfo);
+    displayWeatherData(weatherInfo);
+    updateBackground(weatherInfo.current_weather.weathercode,weatherInfo.current_weather.is_day)
   } catch (error) {
     console.log(error);
   }
